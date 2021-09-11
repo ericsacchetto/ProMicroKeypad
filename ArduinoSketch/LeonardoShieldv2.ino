@@ -161,11 +161,11 @@ void loop(){
     LightLED(2,1);
     break;
   case '7':
-    OpenApp("fireutils");
+    OpenApp("Your App 1");  //replace with your favorite app
     LightLED(0,2);
     break;
   case '8':
-    OpenApp("firemap");
+    OpenApp("Your App 2");  //replace with your second favorite app
     LightLED(1,2);
     break;
   case '9':
