@@ -9,6 +9,6 @@ A rotary encoder was included in order to easily control the volume.
 
 The HID library https://github.com/NicoHood/HID was used, which provided an easy implementation of the shortcut key code.
 
-All the schematic and PCB design was done using KiCad.
+All the schematic and PCB design were done using KiCad.
 
 ![IMG_20211112_130509__01](https://user-images.githubusercontent.com/40772357/141386648-0b74f1af-5522-4a60-b79d-7141d7ba0363.jpg)
