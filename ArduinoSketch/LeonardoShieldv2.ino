@@ -3,14 +3,14 @@
 
 
 // Rotary Encoder Inputs
-#define Clock A1                    //Clock pin connected to D9
-#define Data A2                     //Data pin connected to D8
-#define Push A0                      //Push button pin connected to D10
-int counter = 0;                    //Use this variable to store "steps"
-int currentStateClock;              //Store the status of the clock pin (HIGH or LOW)
-int lastStateClock;                 //Store the PREVIOUS status of the clock pin (HIGH or LOW)
-String currentDir ="";              //Use this to print text 
-unsigned long lastButtonPress = 0;  //Use this to store if the push button was pressed or not
+#define Clock A1
+#define Data A2
+#define Push A0
+int counter = 0;
+int currentStateClock;
+int lastStateClock;
+String currentDir ="";
+unsigned long lastButtonPress = 0;
 
 #define NUM_LED_COLS (3)            // Number of LED columns (+, anode)
 #define NUM_LED_ROWS (3)            // Number of LED rows (-, cathode)
@@ -26,14 +26,13 @@ char hexaKeys[ROWS][COLS] = {
 
 byte rowPins[ROWS] = {2, 3, 4}; 
 byte colPins[COLS] = {5, 6, 7}; 
-static const uint8_t ledRowPins[NUM_LED_ROWS] = {8, 9, 10}; // Pins connected to LED rows (-)
-static const uint8_t ledColPins[NUM_LED_COLS] = {16, 14, 15}; // Pins connected to LED cols (+)
-static bool LED_buffer[NUM_LED_COLS][NUM_LED_ROWS]; // Keeps track of LED states
+static const uint8_t ledRowPins[NUM_LED_ROWS] = {8, 9, 10};     // Pins connected to LED rows (-)
+static const uint8_t ledColPins[NUM_LED_COLS] = {16, 14, 15};   // Pins connected to LED cols (+)
+static bool LED_buffer[NUM_LED_COLS][NUM_LED_ROWS];             // Keeps track of LED states
 
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
 
 void setup(){
-  //while(!SerialUSB);
   Serial.begin(9600);
   Consumer.begin();
   Keyboard.begin();
@@ -49,7 +48,7 @@ void setup(){
   {
     for (uint8_t j = 0; j < NUM_LED_ROWS; j++)
     {
-      LED_buffer[i][j] = 0; // All LED's off
+      LED_buffer[i][j] = 0;
     }
   }
 }
@@ -104,7 +103,6 @@ void loop(){
     } 
     else 
     {
-      // Encoder is rotating CW so increment
       counter ++;
       Consumer.write(MEDIA_VOLUME_UP);
     }
@@ -115,13 +113,9 @@ void loop(){
 
   if (btnState == LOW) 
   {
-    //if 50ms have passed since last LOW pulse, it means that the
-    //button has been pressed, released and pressed again
     if (millis() - lastButtonPress > 50) {
       Consumer.write(MEDIA_VOLUME_MUTE);
     }
-
-    // Remember last button press event
     lastButtonPress = millis();
   }
 
@@ -131,20 +125,14 @@ void loop(){
   case '1':  
     Consumer.write(MEDIA_PREVIOUS);
     LightLED(0,0);
-    //digitalWrite(ledColPins[0], HIGH);
-    //digitalWrite(ledRowPins[0], LOW);
     break;
   case '2':
     Consumer.write(MEDIA_PLAY_PAUSE);
     LightLED(1,0);
-    //digitalWrite(ledColPins[1], HIGH);
-    //digitalWrite(ledRowPins[0], LOW);
     break;
   case '3':
     Consumer.write(MEDIA_NEXT);
     LightLED(2,0);
-    //digitalWrite(ledColPins[0], HIGH);
-    //digitalWrite(ledRowPins[0], LOW);
     break;
   case '4':
     Keyboard.write(KEY_PRINTSCREEN);
